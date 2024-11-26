@@ -1,0 +1,42 @@
+<h1>検索結果</h1>
+
+<!-- 店舗情報のリスト -->
+<div>
+    {% if page_obj %}
+        {% for shop in page_obj %}
+            <div>
+                <h2>{{ shop.name }}</h2>
+                <p><strong>アクセス:</strong> {{ shop.access }}</p>
+                <img src="{{ shop.photo.mobile.l }}" alt="{{ shop.name }}">
+            </div>
+        {% empty %}
+            <p>検索結果がありません。</p>
+        {% endfor %}
+    {% else %}
+        <p>データがありません。</p>
+    {% endif %}
+</div>
+
+<!-- ページネーション -->
+<div>
+    <div>
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}&latitude={{ latitude }}&longitude={{ longitude }}&radius={{ radius }}">前のページ</a>
+        {% endif %}
+        <span>ページ {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&latitude={{ latitude }}&longitude={{ longitude }}&radius={{ radius }}">次のページ</a>
+        {% endif %}
+    </div>
+
+    <!-- ページリンク -->
+    <div>
+        {% for page in page_links %}
+            {% if page == page_obj.number %}
+                <strong>{{ page }}</strong>
+            {% else %}
+                <a href="?page={{ page }}&latitude={{ latitude }}&longitude={{ longitude }}&radius={{ radius }}">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
