@@ -14,9 +14,6 @@ API_KEY = settings.HOTPEPPER_API_KEY
 def index(request):
     return render( request,'restaurant/index.html')
 
-
-
-
 #一覧表示
 def search_results(request):
     
@@ -60,7 +57,6 @@ def search_results(request):
         longitude = saved_params.get("longitude")
         radius = saved_params.get("radius")
 
-   
      # ページング設定
     page_number = request.GET.get('page', 1)
     page_cnt = 10 
@@ -84,8 +80,6 @@ def search_results(request):
         "radius": radius,
     }
     return render(request, "restaurant/results.html", context)
-
-
 
 def shop_detail(request, shop_id):
 

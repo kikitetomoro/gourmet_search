@@ -5,59 +5,53 @@
     <meta charset="UTF-8">
     <title>検索結果</title>
     <link rel="stylesheet" href="{% static 'restaurant/css/styles.css' %}">
-
 </head>
-
 <body>
     <div class="container">
         <h1>検索結果</h1>
-    
-    <!-- 店舗情報のリスト -->
-    <div class="restaurant-resultes">
-        {% if page_obj %}
-            {% for shop in page_obj %}
-            <a href="{% url 'restaurant:shop_detail' shop.id %}">
-                <div class="restaurant-card">
-                    <img src="{{ shop.photo.mobile.l }}" alt="{{ shop.name }}">
-                    <div class="restaurant-card-text">
-                        <h2>{{ shop.name }}</h2>
-                        <p><strong>アクセス:</strong> {{ shop.access }}</p>
+        <!-- 店舗情報のリスト -->
+        <div class="restaurant-resultes">
+            {% if page_obj %}
+                {% for shop in page_obj %}
+                <a href="{% url 'restaurant:shop_detail' shop.id %}">
+                    <div class="restaurant-card">
+                        <img src="{{ shop.photo.mobile.l }}" alt="{{ shop.name }}">
+                        <div class="restaurant-card-text">
+                            <h2>{{ shop.name }}</h2>
+                            <p><strong>アクセス:</strong> {{ shop.access }}</p>
+                        </div>
                     </div>
-                </div>
-            </a>
-            {% empty %}
-                <p>検索結果がありません。</p>
-            {% endfor %}
-        {% else %}
-            <p>データがありません。</p>
-        {% endif %}
-    </div>
-    
-    <!-- ページネーション -->
-    <div class="pagination">
-        <div>
-            {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}&latitude={{ latitude }}&longitude={{ longitude }}&radius={{ radius }}">前のページ</a>
-            {% endif %}
-            <span>ページ {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}&latitude={{ latitude }}&longitude={{ longitude }}&radius={{ radius }}">次のページ</a>
+                </a>
+                {% empty %}
+                    <p>検索結果がありません。</p>
+                {% endfor %}
+            {% else %}
+                <p>データがありません。</p>
             {% endif %}
         </div>
-    
-        <!-- ページリンク -->
-        <div>
-            {% for page in page_links %}
-                {% if page == page_obj.number %}
-                    <strong>{{ page }}</strong>
-                {% else %}
-                    <a href="?page={{ page }}&latitude={{ latitude }}&longitude={{ longitude }}&radius={{ radius }}">{{ page }}</a>
+        <!-- ページネーション -->
+        <div class="pagination">
+            <div>
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}&latitude={{ latitude }}&longitude={{ longitude }}&radius={{ radius }}">前のページ</a>
                 {% endif %}
-            {% endfor %}
+                <span>ページ {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}&latitude={{ latitude }}&longitude={{ longitude }}&radius={{ radius }}">次のページ</a>
+                {% endif %}
+            </div>
+            <!-- ページリンク -->
+            <div>
+                {% for page in page_links %}
+                    {% if page == page_obj.number %}
+                        <strong>{{ page }}</strong>
+                    {% else %}
+                        <a href="?page={{ page }}&latitude={{ latitude }}&longitude={{ longitude }}&radius={{ radius }}">{{ page }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <a class="submit" href="{% url 'restaurant:index' %}">戻る</a>
         </div>
-        <a class="submit" href="{% url 'restaurant:index' %}">戻る</a>
-    </div>
-    
     </div>
 </body>
 
