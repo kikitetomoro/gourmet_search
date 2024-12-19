@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ shop.name }}の詳細</title>
+    <link rel="stylesheet" href="{% static 'restaurant/css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>レストラン詳細</h1>
+    <div class="shop-detail">
+        <img src="{{ shop.photo.mobile.l }}" alt="{{ shop.name }}">
+        <h2>{{ shop.name }}</h2>
+        <div class="shop-detail-text">
+            <p><strong>住所:</strong> {{ shop.address }}</p>
+            <p><strong>ジャンル:</strong> {{ shop.genre.name }}</p>
+            <p><strong>営業時間:</strong> {{ shop.open }}</p>
+            <p><strong>その他:</strong> {{ shop.catch }}</p>
+    
+        </div>
+        <a class='submit' href="{% url 'restaurant:search_results' %}">戻る</a>
+    </div>
+
+    </div>
+</body>
+</html>
